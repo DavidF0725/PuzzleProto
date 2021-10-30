@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -66,5 +67,19 @@ public class PlayerController : MonoBehaviour
         Vector3 Scaler = transform.localScale;
         Scaler.x *= -1;
         transform.localScale = Scaler;
+    }
+
+    //When player dies
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "spikes")
+        {
+            Debug.Log("Dead!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else if (collision.tag == "NextLevel")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }
